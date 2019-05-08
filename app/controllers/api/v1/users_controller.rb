@@ -1,9 +1,14 @@
 class Api::V1::UsersController < ApplicationController
-    before_action :find_user, only: [:update, :destroy]
+    before_action :find_user, only: [:show, :update, :destroy]
+    skip_before_action :verify_authenticity_token
 
     def index
       @users = User.all
       render json: @users
+    end
+
+    def show
+      render json: @user
     end
 
     def create
